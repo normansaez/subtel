@@ -82,7 +82,8 @@ if uploaded_file is not None:
     if st.button('Generar Heats'):
         heats = generar_heats(nombres)
         for i, heat in enumerate(heats):
-            st.write(f"Heat {i + 1}: {', '.join(heat)}")
+#            st.write(f"Heat {i + 1}: {', '.join(heat)}")
+            st.write(f"Heat {i + 1}: \n{heat}")
         
         # Generar el contenido del archivo de salida
         output_content = guardar_heats(heats)
