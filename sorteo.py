@@ -1,19 +1,18 @@
 import streamlit as st
+import pandas as pd
 import random
 
-# Lista de nombres
-nombres = [
-    'Persona1', 'Persona2', 'Persona3', 'Persona4', 'Persona5', 
-    'Persona6', 'Persona7', 'Persona8', 'Persona9', 'Persona10',
-    'Persona11', 'Persona12', 'Persona13', 'Persona14', 'Persona15',
-    'Persona16', 'Persona17', 'Persona18', 'Persona19'
-]
+# Función para cargar nombres desde un archivo CSV
+def cargar_nombres(file):
+    data = pd.read_csv(file)
+    nombres = data.iloc[:, 0].tolist()  # Asumimos que los nombres están en la primera columna
+    return nombres
 
 # Número total de heats y tamaño de heats
 total_heats = 10
 tamanio_heat = 4
 
-def generar_heats():
+def generar_heats(nombres):
     # Inicializar heats vacíos
     heats = [[] for _ in range(total_heats)]
     participacion = {nombre: 0 for nombre in nombres}
@@ -43,8 +42,15 @@ def generar_heats():
 
 st.title('Generador de Heats')
 
-if st.button('Generar Heats'):
-    heats = generar_heats()
-    for i, heat in enumerate(heats):
-        st.write(f"Heat {i + 1}: {', '.join(heat)}")
+uploaded_file = st.file_uploader("Sube el archivo CSV con la lista de participantes")
+
+if uploaded_file is not None:
+    nombres = cargar_nombres(uploaded_file)
+    st.write("Participantes:")
+    st.write(nombres)
+
+    if st.button('Generar Heats'):
+        heats = generar_heats(nombres)
+        for i, heat in enumerate(heats):
+            st.write(f"Heat {i + 1}: {', '.join(heat)}")
 
