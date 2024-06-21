@@ -51,6 +51,15 @@ def generar_heats(nombres):
                     heat.append(h.pop())
                     break
 
+    # Asegurarse de que los participantes "NN NN" estén en heats de 4 personas
+    for heat in heats:
+        if len(heat) == 3 and "NN NN" in heat:
+            for h in heats:
+                if len(h) == 4 and "NN NN" not in h:
+                    heat.append(h.pop())
+                    if len(heat) == 4:
+                        break
+
     return heats
 
 def guardar_heats(heats):
