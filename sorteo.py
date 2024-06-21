@@ -40,6 +40,14 @@ def generar_heats(nombres):
 
     return heats
 
+def guardar_heats(heats):
+    lines = []
+    for i, heat in enumerate(heats):
+        lines.append(f"heat{i + 1}")
+        lines.extend(heat)
+        lines.append("")
+    return "\n".join(lines)
+
 st.title('Generador de Heats')
 
 uploaded_file = st.file_uploader("Sube el archivo CSV con la lista de participantes")
@@ -53,4 +61,13 @@ if uploaded_file is not None:
         heats = generar_heats(nombres)
         for i, heat in enumerate(heats):
             st.write(f"Heat {i + 1}: {', '.join(heat)}")
+        
+        # Generar y mostrar el contenido del archivo de salida
+        output_content = guardar_heats(heats)
+        st.download_button(
+            label="Descargar Heats",
+            data=output_content,
+            file_name="heats.txt",
+            mime="text/plain"
+        )
 
