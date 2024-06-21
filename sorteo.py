@@ -84,8 +84,10 @@ if uploaded_file is not None:
         for i, heat in enumerate(heats):
             st.write(f"Heat {i + 1}: {', '.join(heat)}")
         
-        # Generar y mostrar el contenido del archivo de salida
+        # Generar el contenido del archivo de salida
         output_content = guardar_heats(heats)
+
+        # Mostrar el botón para descargar el archivo de salida
         st.download_button(
             label="Descargar Heats",
             data=output_content,
