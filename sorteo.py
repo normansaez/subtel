@@ -43,13 +43,11 @@ def generar_heats(nombres):
                 heats_asignados += 1
             intentos += 1
 
-    # Ajuste de heats para asegurar que haya al menos 3 personas en cada uno
-    heats = [heat for heat in heats if len(heat) > 0]
-
+    # Ajuste de heats para asegurar que haya al menos 3 personas en cada uno y no haya duplicados en heats de 3 personas
     for heat in heats:
         if len(heat) < 3:
             for h in heats:
-                if len(h) > 3:
+                if len(h) > 3 and len(set(h)) == len(h):
                     heat.append(h.pop())
                     break
 
