@@ -17,14 +17,27 @@ def generar_heats(nombres):
     heats = [[] for _ in range(total_heats)]
     participacion = {nombre: 0 for nombre in nombres}
 
-    # Asignar cada persona a dos heats
+    # Asignar cada persona a heats 1-5 primero
     for nombre in nombres:
         heats_asignados = 0
         intentos = 0
-        while heats_asignados < 2 and intentos < 100:
-            # Seleccionar un heat aleatorio
-            heat_index = random.choice(range(total_heats))
-            if len(heats[heat_index]) < tamanio_heat and participacion[nombre] < 2 and nombre not in heats[heat_index]:
+        while heats_asignados < 1 and intentos < 100:
+            # Seleccionar un heat aleatorio del 1 al 5
+            heat_index = random.choice(range(5))
+            if len(heats[heat_index]) < tamanio_heat and participacion[nombre] < 1:
+                heats[heat_index].append(nombre)
+                participacion[nombre] += 1
+                heats_asignados += 1
+            intentos += 1
+
+    # Asignar cada persona a heats 6-10 después
+    for nombre in nombres:
+        heats_asignados = 0
+        intentos = 0
+        while heats_asignados < 1 and intentos < 100:
+            # Seleccionar un heat aleatorio del 6 al 10
+            heat_index = random.choice(range(5, 10))
+            if len(heats[heat_index]) < tamanio_heat and participacion[nombre] < 2:
                 heats[heat_index].append(nombre)
                 participacion[nombre] += 1
                 heats_asignados += 1
