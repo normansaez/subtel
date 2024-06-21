@@ -20,13 +20,15 @@ def generar_heats(nombres):
     # Asignar cada persona a dos heats
     for nombre in nombres:
         heats_asignados = 0
-        while heats_asignados < 2:
+        intentos = 0
+        while heats_asignados < 2 and intentos < 100:
             # Seleccionar un heat aleatorio
             heat_index = random.choice(range(total_heats))
-            if len(heats[heat_index]) < tamanio_heat and participacion[nombre] < 2:
+            if len(heats[heat_index]) < tamanio_heat and participacion[nombre] < 2 and nombre not in heats[heat_index]:
                 heats[heat_index].append(nombre)
                 participacion[nombre] += 1
                 heats_asignados += 1
+            intentos += 1
 
     # Ajuste de heats para asegurar que haya al menos 3 personas en cada uno
     heats = [heat for heat in heats if len(heat) > 0]
