@@ -1,2 +1,5 @@
 streamlit>=1.26.0
 cryptography
+google-auth 
+google-api-python-client
+google-cloud-storage
